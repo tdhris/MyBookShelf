@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block page_title %}MyBookShelf.home{% endblock %}
+
+{% block content %}
+
+<div class="bookform form-control input-lg text-center">
+    <form method="POST" action="{% url 'get_book' %}">
+        {{ form }}
+        {% csrf_token %}
+    </form>
+</div>
+
+{% endblock %}
