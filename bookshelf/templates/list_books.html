@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block page_title %}All Books{% endblock %}
+
+{% block content %}
+    {% for book in books %}
+        <div class="text-center bookview">
+            <h1>Title: {{ book.title }}</h1>
+            <h3>Author: {{ book.author }}</h3>
+            <h3>Genre: {{ book.genre }}</h3>
+            <h3>Publication Date: {{ book.pub_date }}</h3>
+            <p> {{ book.synopsis }} </p>
+        </div>
+    {% endfor %}
+{% endblock %}

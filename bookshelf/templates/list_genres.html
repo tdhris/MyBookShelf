@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block page_title %}All Authors{% endblock %}
+
+{% block content %}
+    {% for genre in genres %}
+        <div class="text-center bookview">
+            <h1> {{ genre.name }}</h1>
+            <h3> Books: </h3>
+            {% for book in genre.book_set.all %}
+            <p> {{ book.title }} </p>
+            {% endfor %}
+        </div>
+    {% endfor %}
+{% endblock %}

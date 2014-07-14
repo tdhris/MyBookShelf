@@ -30,14 +30,11 @@
     box-shadow: inset 1px 1px 1px 2px #1F331F;
 }
 
-.addbookform {
-    color: red;
-}
-
 .main {
     background-color: #141A0F;
+    color:  #DBFFB8;
 }
 
-.bookview {
+.container .bookview h1 {
     color: red;
 }

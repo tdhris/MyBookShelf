@@ -120,3 +120,90 @@ class AddBookTests(TestCase):
                          follow=True)
         self.assertEqual(Genre.objects.count(), count)
 
+
+class ListTests(TestCase):
+    def test_list_books_renders_correct_template(self):
+        response = self.client.get('/list-books/')
+        self.assertTemplateUsed(response, 'list_books.html')
+
+    def test_list_authors_renders_correct_template(self):
+        response = self.client.get('/list-authors/')
+        self.assertTemplateUsed(response, 'list_authors.html')
+
+    def test_list_genres_renders_correct_template(self):
+        response = self.client.get('/list-genres/')
+        self.assertTemplateUsed(response, 'list_genres.html')
+
+    def test_book_is_listed_after_it_is_added(self):
+        self.client.post('/add-book/',
+                         data={'title': 'Harry Potter',
+                               'author_name': 'J.K. Rowling',
+                               'genre_name': 'Fantasy',
+                               'synopsis': 'Best Series Ever'},
+                         follow=True)
+
+        self.client.post('/add-book/',
+                         data={'title': 'The Lies of Locke Lamora',
+                               'author_name': 'Scott Lynch',
+                               'genre_name': 'Fantasy',
+                               'synopsis': 'Very good'},
+                         follow=True)
+        response = self.client.get('/list-books/')
+        self.assertContains(response, 'The Lies of Locke Lamora')
+        self.assertContains(response, 'Harry Potter')
+
+    def test_author_is_listed_after_they_are_added(self):
+        self.client.post('/add-book/',
+                         data={'title': 'Harry Potter',
+                               'author_name': 'J.K. Rowling',
+                               'genre_name': 'Fantasy',
+                               'synopsis': 'Best Series Ever'},
+                         follow=True)
+        self.client.post('/add-book/',
+                         data={'title': 'The Silkworm',
+                               'author_name': 'J.K. Rowling',
+                               'genre_name': 'Mystery',
+                               'synopsis': 'Currently reading..'},
+                         follow=True)
+
+        self.client.post('/add-book/',
+                         data={'title': 'The Lies of Locke Lamora',
+                               'author_name': 'Scott Lynch',
+                               'genre_name': 'Fantasy',
+                               'synopsis': 'Very good'},
+                         follow=True)
+
+        response = self.client.get('/list-books/')
+        self.assertContains(response, 'Scott Lynch')
+        self.assertContains(response, 'J.K. Rowling')
+        self.assertContains(response, 'The Lies of Locke Lamora')
+        self.assertContains(response, 'Harry Potter')
+        self.assertContains(response, 'The Silkworm')
+
+    def test_genre_is_listed_after_it_is_added(self):
+        self.client.post('/add-book/',
+                         data={'title': 'Harry Potter',
+                               'author_name': 'J.K. Rowling',
+                               'genre_name': 'Fantasy',
+                               'synopsis': 'Best Series Ever'},
+                         follow=True)
+
+        self.client.post('/add-book/',
+                         data={'title': 'The Lies of Locke Lamora',
+                               'author_name': 'Scott Lynch',
+                               'genre_name': 'Fantasy',
+                               'synopsis': 'Very good'},
+                         follow=True)
+        self.client.post('/add-book/',
+                         data={'title': 'The Silkworm',
+                               'author_name': 'J.K. Rowling',
+                               'genre_name': 'Mystery',
+                               'synopsis': 'Currently reading..'},
+                         follow=True)
+
+        response = self.client.get('/list-genres/')
+        self.assertContains(response, 'Fantasy')
+        self.assertContains(response, 'Mystery')
+        self.assertContains(response, 'The Lies of Locke Lamora')
+        self.assertContains(response, 'Harry Potter')
+        self.assertContains(response, 'The Silkworm')

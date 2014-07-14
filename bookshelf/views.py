@@ -42,6 +42,21 @@ def get_book(request):
         return redirect(wanted_book)
 
 
+def list_books(request):
+    books = Book.objects.all()
+    return render(request, 'list_books.html', {'books': books})
+
+
+def list_authors(request):
+    authors = Author.objects.all()
+    return render(request, 'list_authors.html', {'authors': authors})
+
+
+def list_genres(request):
+    genres = Genre.objects.all()
+    return render(request, 'list_genres.html', {'genres': genres})
+
+
 def get_author_of_book(author_name):
     authors = Author.objects.filter(name=author_name)
     if len(authors) < 1:
