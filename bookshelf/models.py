@@ -20,7 +20,7 @@ class Book(models.Model):
     title = models.CharField(max_length=30, default='')
     author = models.ForeignKey(Author)
     genre = models.ForeignKey(Genre)
-    pub_date = models.DateField()
+    pub_date = models.DateField(auto_now_add=True)
     synopsis = models.TextField(default='')
 
     def get_absolute_url(self):
