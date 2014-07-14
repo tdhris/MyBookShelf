@@ -9,6 +9,10 @@
     box-shadow: inset 10px 10px 10px 20px #1F331F;
 }
 
+.nav ul {   
+    list-style-type: none;
+}
+
 .nav a {
     color: #CCFF99;
     font-family: "Brushstroke", fantasy;
@@ -35,6 +39,40 @@
     color:  #DBFFB8;
 }
 
-.container .bookview h1 {
-    color: red;
+.bookview {
+    color:  #DBFFB8;
+    font-family: "Brushstroke", fantasy;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    margin-left: auto; 
+    margin-right: auto;
+}
+
+.bookview h1 {
+    color:  #DBFFB0;
+    font-size: 30px;
+}
+
+.bookview h3 {
+    color:  #DBFFB0;
+    font-size: 20px;
+}
+
+.lala {
+    position: relative;
+    background-size: contain;
+    margin-top: -10px;
+    margin-left: auto; 
+    margin-right: auto; 
+    background-color: #CCFF99;
+    font-family: "Brushstroke", fantasy;
+    font-variant: small-caps;
+    text-transform: uppercase;
+    color: #2E4C2E;
+    box-shadow: inset 1px 1px 1px 2px #1F331F;
+}
+
+.form-horizontal input {
+    display: block;
+    text-align: center;
 }
