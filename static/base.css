@@ -118,6 +118,10 @@
     text-align: center;
 }
 
-.forums a {
-    color:  #FFFFCC;
+.forums {
+    text-align: center;
+}
+
+.replytext {
+    text-align: center;
 }

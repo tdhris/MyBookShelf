@@ -74,3 +74,10 @@ def get_genre_of_book(genre_name):
         return genre
     else:
         return genres[0]
+
+
+def about(request):
+    book_count = Book.objects.count()
+    author_count = Author.objects.count()
+    genre_count = Genre.objects.count()
+    return render(request, 'about.html', locals())

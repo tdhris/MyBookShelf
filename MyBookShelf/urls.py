@@ -33,10 +33,12 @@ urlpatterns = patterns('',
                            name='new_topic'),
                        url(r'^forums/view-topic/(?P<topic_id>\d+)/$',
                            'forums.views.view_topic', name='view_topic'),
-                       url(r'forums/(?P<topic_id>\d+)/reply/$',
+                       url(r'^forums/(?P<topic_id>\d+)/reply/$',
                            'forums.views.reply', name='reply'),
-                       url(r'forums/post-reply/(?P<topic_id>\d+)/$',
-                           'forums.views.post_reply', name='post_reply')
+                       url(r'^forums/post-reply/(?P<topic_id>\d+)/$',
+                           'forums.views.post_reply', name='post_reply'),
+                       url(r'^about-us/$', 'bookshelf.views.about',
+                           name='about')
                        # url(r'^forums/$', include('forums.urls',
                        #     namespace='forums'))
                        )
