@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 
-{% block page_title %}Add Book to MyBookShelf.home{% endblock %}
+{% block page_title %}Reply{% endblock %}
 
 
 {% block content %}
 
 <div class="form-horizontal form-group form-control input-lg text-center lala img-rounded jumbotron">
-    <form method="POST" action="{% url 'add_book' %}">
+    <form method="POST" action="{% url 'post_reply' topic_id %}">
         {{ form }}
         {% csrf_token %}
         <br />
-        <input class="button img-rounded" type="submit" value="Submit Book" />
+        <input class="button img-rounded" type="submit" value="Submit Post" />
     </form>
 </div>
 

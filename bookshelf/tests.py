@@ -120,6 +120,23 @@ class AddBookTests(TestCase):
                          follow=True)
         self.assertEqual(Genre.objects.count(), count)
 
+    def test_cannot_add_book_that_is_already_in_the_database(self):
+        self.client.post('/add-book/',
+                         data={'title': 'Harry Potter',
+                               'author_name': 'J.K. Rowling',
+                               'genre_name': 'Fantasy',
+                               'synopsis': 'Best Series Ever'},
+                         follow=True)
+        count = Genre.objects.count()
+
+        self.client.post('/add-book/',
+                         data={'title': 'Harry Potter',
+                               'author_name': 'J.K. Rowling',
+                               'genre_name': 'Fantasy',
+                               'synopsis': 'Best Series Ever'},
+                         follow=True)
+        self.assertEqual(Genre.objects.count(), count)
+
 
 class ListTests(TestCase):
     def test_list_books_renders_correct_template(self):
@@ -141,6 +158,7 @@ class ListTests(TestCase):
                                'genre_name': 'Fantasy',
                                'synopsis': 'Best Series Ever'},
                          follow=True)
+        response = self.client.get('/add/')
 
         self.client.post('/add-book/',
                          data={'title': 'The Lies of Locke Lamora',

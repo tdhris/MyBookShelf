@@ -37,6 +37,7 @@
 .main {
     background-color: #141A0F;
     color:  #DBFFB8;
+    background-size: contain;
 }
 
 .bookview {
@@ -58,10 +59,34 @@
     font-size: 20px;
 }
 
+.bookview a {
+    color:  #c9ffb8;
+}
+
+.lala input {
+    display: block;
+    position: relative;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 6px;
+}
+
+.lala label {
+    text-align: center;
+    display: block;
+    margin-top: 10px;
+}
+
+.wrapper {
+    background-color: #141A0F;
+}
+
 .lala {
     position: relative;
     background-size: contain;
-    margin-top: -10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     margin-left: auto; 
     margin-right: auto; 
     background-color: #CCFF99;
@@ -69,10 +94,34 @@
     font-variant: small-caps;
     text-transform: uppercase;
     color: #2E4C2E;
-    box-shadow: inset 1px 1px 1px 2px #1F331F;
 }
 
-.form-horizontal input {
-    display: block;
+.not-found {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-family: "Brushstroke", fantasy;
+}
+
+.not-found a {
+    color:  #FFFFCC;
+}
+
+.not-found p {
+    font-size: 15px;
+}
+
+.not-found h2 {
+    font-size: 20px;
+}
+
+.last {
+    text-align: center;
+}
+
+.forums {
+    text-align: center;
+}
+
+.replytext {
     text-align: center;
 }

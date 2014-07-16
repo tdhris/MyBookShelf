@@ -3,11 +3,11 @@
 {% block page_title %}Could Not Find Book in Archive{% endblock %}
 
 {% block content %}
-    <div class="row text-center">
+    <div class="row text-center not-found">
         <h2>Sorry, the requested book does not exist in our archive.</h2>
         <div class ="mes">
-            <div class="">To add the book, click here</div>
-            <div class="">To search for another book, click here</div>
+            <p>To add the book, click <a href="{% url 'add_book_form' %}">here</a></p>
+            <p>To search for another book, <a href="{% url 'home' %}">click here</a></p>
         </div>
     </div>
 {% endblock %}

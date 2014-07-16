@@ -5,17 +5,17 @@ from bookshelf.models import Book, Author, Genre
 
 def home_page(request):
     form = SearchBookForm()
-    return render(request, 'homepage.html', {'form': form})
+    return render(request, 'homepage.html', locals())
 
 
 def see_book(request, book_id):
     book = get_object_or_404(Book, pk=book_id)
-    return render(request, 'book.html', {'book': book})
+    return render(request, 'book.html', locals())
 
 
 def add_book_form(request):
     form = AddBookForm()
-    return render(request, 'add_book.html', {'form': form})
+    return render(request, 'add_book.html', locals())
 
 
 def add_book(request):
@@ -23,10 +23,11 @@ def add_book(request):
     if form.is_valid():
         book_author = get_author_of_book(request.POST['author_name'])
         book_genre = get_genre_of_book(request.POST['genre_name'])
-        book = Book.objects.create(title=request.POST['title'],
+        book = Book.objects.create(title=form.cleaned_data.get('title'),
                                    author=book_author,
                                    genre=book_genre,
-                                   synopsis=request.POST['synopsis'])
+                                   synopsis=form.cleaned_data.get('synopsis'),
+                                   pub_date=form.cleaned_data.get('publication_date'))
         return redirect(book)
 
     else:
@@ -43,18 +44,18 @@ def get_book(request):
 
 
 def list_books(request):
-    books = Book.objects.all()
-    return render(request, 'list_books.html', {'books': books})
+    books = sorted(Book.objects.all())
+    return render(request, 'list_books.html', locals())
 
 
 def list_authors(request):
-    authors = Author.objects.all()
-    return render(request, 'list_authors.html', {'authors': authors})
+    authors = sorted(Author.objects.all())
+    return render(request, 'list_authors.html', locals())
 
 
 def list_genres(request):
-    genres = Genre.objects.all()
-    return render(request, 'list_genres.html', {'genres': genres})
+    genres = sorted(Genre.objects.all())
+    return render(request, 'list_genres.html', locals())
 
 
 def get_author_of_book(author_name):

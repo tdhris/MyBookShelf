@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="topic">Topic: {{ topic.title }}</div>
+<div id="list">
+
+    {% for post in topic.post_set.all %}
+        <div class="post">
+            <span class="title">Posted by {{ post.poster }} | <span class="date">{{ post.date_created }}</span>|
+            <br />
+            <div class="replytext">
+                {{ post.text }} <br />
+            </div>
+        </div>
+        <br />
+    {% endfor %}
+</div>
+<br />
+<a class="button" href="{% url 'forums.views.reply' topic.id %}">Reply</a>
+
+{% endblock %}

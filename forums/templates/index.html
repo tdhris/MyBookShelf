@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div id="list" class="forums">
+<table border="0" cellpadding="4" width="100%">
+    <tr>
+        <td></td>
+        <td>Posts</td>
+        <td>Last post</td>
+        <td></td>
+    </tr>
+    {% if forums %}
+    {% for forum in forums %}
+    <tr>
+        <td {% if forloop.last %}class="last"{% endif %}>
+        <div class="title"> <a href="{% url 'view_forum' forum.id %}">{{ forum.title }}</a>
+            </div></td>
+        <td {% if forloop.last %}class="last"{% endif %}>{{ forum.post_count }}</td>
+        <td {% if forloop.last %}class="last"{% endif %}>
+            {{ forum.last_post.short |linebreaksbr }}</td>
+        <td {% if forloop.last %}class="last"{% endif %}>
+            <a class="button" href="{% url 'view_forum' forum.id %}">VIEW</a>
+        </td>
+    </tr>
+
+    {% endfor %}
+    {% endif %}
+</div>
+{% endblock %}

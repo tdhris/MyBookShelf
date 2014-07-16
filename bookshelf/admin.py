@@ -7,7 +7,9 @@ class AuthorAdmin(admin.ModelAdmin):
 
 
 class BookAdmin(admin.ModelAdmin):
-    fields = ('title', 'pub_date', 'author', 'genre')
+
+    class Meta:
+        model = Book
 
 
 class GenreAdmin(admin.ModelAdmin):
