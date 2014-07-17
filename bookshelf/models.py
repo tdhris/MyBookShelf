@@ -22,6 +22,9 @@ class Author(models.Model):
     def short(self):
         return self.biography[:100]
 
+    def get_absolute_url(self):
+        return reverse('see_author', args=[self.id])
+
 
 class Genre(models.Model):
     name = models.CharField(max_length=30, default='')

@@ -16,6 +16,10 @@
     </td>
     <h3> Biography </h3>
     {{ author.biography |linebreaksbr}}
+<br />
+<br />
+<a class="button text-center container thumbnail col-md-6 col-md-offset-3" href="{% url 'edit_author' author.id %}">Edit Author</a>
+
 </div>
 
 {% endblock %}

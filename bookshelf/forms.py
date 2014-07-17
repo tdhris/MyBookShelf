@@ -29,3 +29,7 @@ class AddBookForm(forms.models.ModelForm):
     class Meta:
         model = Book
         exclude = ['author', 'genre', 'pub_date']
+
+
+class EditAuthorForm(forms.Form):
+    biography = forms.CharField(widget=forms.Textarea(attrs={'cols': 100, 'rows': 10}))

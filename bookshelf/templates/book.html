@@ -9,6 +9,13 @@
     <h3>Publication Date: {{ book.pub_date }}</h3>
     <p>Synopsis</p>
     <p> {{ book.synopsis }} </p>
+
+<br />
+<h3>If you liked this book, you may also like...</h3>
+{% for other_book in other_books %}
+<p><a href="{% url 'see_book' other_book.id %}">{{ other_book.title }}</a></p>
+{% endfor %}
+
 </div>
 
 {% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Add Book to MyBookShelf.home{% endblock %}
+
+
+{% block content %}
+
+<div class="img-rounded jumbotron">
+    <form method="POST" action="{% url 'save_edit_author' author_id %}" class=" form-group img-rounded text-center">
+        {% for field in form %}
+            <p><h3>{{ field.label_tag }}</h3> {{ field }}</p>
+        {% endfor %}
+        {% csrf_token %}
+        <br />
+        <input class="button img-rounded" type="submit" value="Save" />
+    </form>
+</div>
+
+
+{% endblock %}

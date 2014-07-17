@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from bookshelf.forms import SearchBookForm, AddBookForm
+from bookshelf.forms import SearchBookForm, AddBookForm, EditAuthorForm
 from bookshelf.models import Book, Author, Genre
 from collections import OrderedDict
 from random import sample
@@ -23,6 +23,8 @@ def get_random(objects, number):
 
 def see_book(request, book_id):
     book = get_object_or_404(Book, pk=book_id)
+    other_books = set(Book.objects.filter(author=book.author).exclude(title=book.title))
+    other_books = other_books.union(Book.objects.filter(genre=book.genre).exclude(title=book.title))
     return render(request, 'book.html', locals())
 
 
@@ -30,6 +32,24 @@ def see_author(request, author_id):
     author = get_object_or_404(Author, pk=author_id)
     genres = set([book.genre for book in author.book_set.all()])
     return render(request, 'author.html', locals())
+
+
+def edit_author(request, author_id):
+    form = EditAuthorForm()
+    return render(request, 'edit_author.html', locals())
+
+
+def save_edit_author(request, author_id):
+    form = EditAuthorForm(data=request.POST)
+    if form.is_valid():
+        new_biography = form.cleaned_data.get('biography')
+        author = get_object_or_404(Author, pk=author_id)
+        author.biography = new_biography
+        author.save()
+        return redirect(author)
+
+    else:
+        return render(request, 'homepage.html', {'form': SearchBookForm()})
 
 
 def see_genre(request, genre_id):
