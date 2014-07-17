@@ -11,4 +11,40 @@
     </form>
 </div>
 
+<div class="jombotron">
+    <div class="container col-md-4 text-center">
+    {% if books %}
+    <h2>Find new books...</h2>
+        {% for book in books %}
+            <h3><a href="{% url 'see_book' book.id %}"> {{ book.title }} </a></h3>
+            <h4>by: <a href="{% url 'see_author' book.author.id %}">{{ book.author }}</a></h4>
+            <p> {{ book.short }} ... </p>
+        {% endfor %}
+    {% else %}
+    <div class="row vertical-center-row">
+        <h3>There are no books on your BookShelf</h3>
+        <h4>
+        <a href="{% url 'add_book_form' %}">Add a book</a> now!
+        </h4>
+    </div>
+    {% endif %}
+    </div>
+
+    <div class="container col-md-4 text-center">
+    <h2>Find new authors...</h2>
+    {% for author in authors %}
+        <h3><a href="{% url 'see_author' author.id %}"> {{ author.name }} </a></h3>
+        <p> {{ author.short }} ... </p>
+    {% endfor %}
+    </div>
+
+    <div class="container col-md-4 text-center">
+    <h2>Find new genres...</h2>
+    {% for genre in genres %}
+        <h3><a href="{% url 'see_genre' genre.id %}"> {{ genre.name }} </a></h3>
+        <p> {{ genre.short }} ... </p>
+    {% endfor %}
+    </div>
+</div>
+
 {% endblock %}

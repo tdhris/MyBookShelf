@@ -2,11 +2,23 @@ from django.shortcuts import render, redirect, get_object_or_404
 from bookshelf.forms import SearchBookForm, AddBookForm
 from bookshelf.models import Book, Author, Genre
 from collections import OrderedDict
+from random import sample
 
 
 def home_page(request):
     form = SearchBookForm()
+    books = get_random(Book.objects.all(), 5)
+    authors = get_random(Author.objects.all(), 5)
+    genres = get_random(Genre.objects.all(), 5)
     return render(request, 'homepage.html', locals())
+
+
+def get_random(objects, number):
+    count = len(objects)
+    if count:
+        random_indexes = sample(range(len(objects)), number)
+        random_objects = [objects[random_index] for random_index in random_indexes]
+        return random_objects
 
 
 def see_book(request, book_id):

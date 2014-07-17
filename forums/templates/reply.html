@@ -6,8 +6,10 @@
 {% block content %}
 
 <div class=" jumbotron img-rounded">
-    <form class=" form-group input-lg img-rounded text-center" method="POST" action="{% url 'post_reply' topic_id %}">
-        {{ form }}
+    <form class=" form-group img-rounded text-center" method="POST" action="{% url 'post_reply' topic_id %}">
+         {% for field in form %}
+            <p><h3>{{ field.label_tag }}</h3> {{ field }}</p>
+        {% endfor %}
         {% csrf_token %}
         <br />
         <input class="button img-rounded" type="submit" value="Submit Post" />

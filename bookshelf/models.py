@@ -19,6 +19,9 @@ class Author(models.Model):
     def __gt__(self, other):
         return self.name > other.name
 
+    def short(self):
+        return self.biography[:100]
+
 
 class Genre(models.Model):
     name = models.CharField(max_length=30, default='')
@@ -36,6 +39,9 @@ class Genre(models.Model):
     def __gt__(self, other):
         return self.name > other.name
 
+    def short(self):
+        return self.description[:100]
+
 
 class Book(models.Model):
     title = models.CharField(max_length=60, default='')
@@ -48,6 +54,9 @@ class Book(models.Model):
 
     def get_absolute_url(self):
         return reverse('see_book', args=[self.id])
+
+    def short(self):
+        return self.synopsis[:100]
 
     def __str__(self):
         return self.title

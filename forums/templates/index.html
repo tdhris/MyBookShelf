@@ -1,6 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+
+{% if user %}
+You're logged in as {{ user.username }}
+{% else %}
+<p><a href="">Sign Up</a></p>
+<p><a href="">Sign In</a></p>
+{% endif %}
+
 <div id="list" class="jumbotron">
 <table border="0" cellpadding="4" width="100%">
     <tr>

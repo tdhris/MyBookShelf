@@ -5,9 +5,11 @@
 
 {% block content %}
 
-<div class="form-horizontal form-group form-control input-lg text-center lala img-rounded jumbotron">
-    <form method="POST" action="{% url 'add_topic' forum_id %}">
-        {{ form }}
+<div class="jumbotron img-rounded">
+    <form method="POST" action="{% url 'add_topic' forum_id %}" class="text-center form-group">
+        {% for field in form %}
+            <p><h3>{{ field.label_tag }}</h3> {{ field }}</p>
+        {% endfor %}
         {% csrf_token %}
         <br />
         <input class="button img-rounded" type="submit" value="Submit Topic" />

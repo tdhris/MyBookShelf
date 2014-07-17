@@ -5,7 +5,7 @@
     {% load bootstrap_themes %}
     <title>{% block page_title %}{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% bootstrap_styles theme='amelia' type='css' %}
+    {% bootstrap_styles theme='united' type='css' %}
 </head>
 <body>
     <div class="main wrapper">
@@ -31,6 +31,9 @@
             {% block content %}
             {% endblock %}
         </div>
+    </div>
+    <div class="footer navbar-fixed-bottom col-md-offset-1">
+    <p><h6>© 2014 MyBookShelf.home</h6></p>
     </div>
 </body>
 </html>

@@ -7,15 +7,16 @@ class AddTopicForm(forms.models.ModelForm):
 
     class Meta:
         model = Topic
-        exclude = ['forum']
+        exclude = ['forum', 'creator']
 
 
 class AddForumForm(forms.models.ModelForm):
     class Meta:
         model = Forum
+        exclude = ['creator', ]
 
 
 class AddPostForm(forms.models.ModelForm):
     class Meta:
         model = Post
-        exclude = ['topic']
+        exclude = ['topic', 'poster']

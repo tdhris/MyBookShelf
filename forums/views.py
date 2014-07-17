@@ -5,7 +5,7 @@ from forums.forms import AddTopicForm, AddPostForm
 
 def home_forums(request):
     forums = Forum.objects.all()
-    user = request.user
+    # user = get_user(request)
     return render(request, 'index.html', locals())
 
 
@@ -27,7 +27,7 @@ def add_topic(request, forum_id):
     form = AddTopicForm(data=request.POST)
     if form.is_valid():
         for_forum = get_object_or_404(Forum, pk=forum_id)
-        poster = form.cleaned_data.get('creator')
+        poster = get_user(request)
         new_topic = Topic.objects.create(title=form.cleaned_data.get('title'),
                                          creator=poster,
                                          forum=for_forum,
@@ -62,8 +62,13 @@ def post_reply(request, topic_id):
         for_topic = get_object_or_404(Topic, pk=topic_id)
         Post.objects.create(text=form.cleaned_data.get('text'),
                             date_created=form.cleaned_data.get('date_created'),
-                            poster=form.cleaned_data.get('poster'),
+                            poster=get_user(request),
                             topic=for_topic)
         return redirect(for_topic)
     else:
         return view_topic(request, topic_id)
+
+
+def get_user(request):
+    if request.user.is_authenticated():
+        return request.user
