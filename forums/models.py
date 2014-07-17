@@ -64,6 +64,8 @@ class Post(models.Model):
     topic = models.ForeignKey(Topic)
 
     def __str__(self):
+        if not self.poster:
+            return "posted in %s by Anonymous" % (str(self.topic))
         return "posted in %s by %s" % (str(self.topic), str(self.poster))
 
     def short(self):

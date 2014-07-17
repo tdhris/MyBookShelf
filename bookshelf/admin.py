@@ -3,7 +3,7 @@ from bookshelf.models import Author, Book, Genre
 
 
 class AuthorAdmin(admin.ModelAdmin):
-    fields = ('name',)
+    fields = ('name', 'biography')
 
 
 class BookAdmin(admin.ModelAdmin):
@@ -13,7 +13,7 @@ class BookAdmin(admin.ModelAdmin):
 
 
 class GenreAdmin(admin.ModelAdmin):
-    fields = ('name',)
+    fields = ('name', 'description')
 
 
 admin.site.register(Author, AuthorAdmin)

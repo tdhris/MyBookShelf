@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from bookshelf.forms import SearchBookForm, AddBookForm
 from bookshelf.models import Book, Author, Genre
+from collections import OrderedDict
 
 
 def home_page(request):
@@ -11,6 +12,17 @@ def home_page(request):
 def see_book(request, book_id):
     book = get_object_or_404(Book, pk=book_id)
     return render(request, 'book.html', locals())
+
+
+def see_author(request, author_id):
+    author = get_object_or_404(Author, pk=author_id)
+    genres = set([book.genre for book in author.book_set.all()])
+    return render(request, 'author.html', locals())
+
+
+def see_genre(request, genre_id):
+    genre = get_object_or_404(Genre, pk=genre_id)
+    return render(request, 'genre.html', locals())
 
 
 def add_book_form(request):
@@ -37,24 +49,24 @@ def add_book(request):
 def get_book(request):
     books = Book.objects.filter(title=request.POST['title'])
     if len(books) < 1:
-        return render(request, 'book_not_found.html')
+        return add_book_form(request)
     else:
         wanted_book = books[0]
         return redirect(wanted_book)
 
 
 def list_books(request):
-    books = sorted(Book.objects.all())
+    alphabetic_books = get_alphabetic_dictionary(Book.objects.all())
     return render(request, 'list_books.html', locals())
 
 
 def list_authors(request):
-    authors = sorted(Author.objects.all())
+    alphabetic_authors = get_alphabetic_dictionary(Author.objects.all())
     return render(request, 'list_authors.html', locals())
 
 
 def list_genres(request):
-    genres = sorted(Genre.objects.all())
+    alphabetic_genres = get_alphabetic_dictionary(Genre.objects.all())
     return render(request, 'list_genres.html', locals())
 
 
@@ -81,3 +93,13 @@ def about(request):
     author_count = Author.objects.count()
     genre_count = Genre.objects.count()
     return render(request, 'about.html', locals())
+
+
+def get_alphabetic_dictionary(objects):
+    objects = sorted(objects)
+    alphabetic_dictionary = {first_letter:
+                             [object for object in objects
+                              if str(object).startswith(first_letter)]
+                             for first_letter in set(str(object)[0]
+                                                     for object in objects)}
+    return OrderedDict(sorted(alphabetic_dictionary.items(), key=lambda t: t[0]))

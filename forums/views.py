@@ -60,10 +60,10 @@ def post_reply(request, topic_id):
     form = AddPostForm(data=request.POST)
     if form.is_valid():
         for_topic = get_object_or_404(Topic, pk=topic_id)
-        reply = Post.objects.create(text=form.cleaned_data.get('text'),
-                                    date_created=form.cleaned_data.get('date_created'),
-                                    poster=form.cleaned_data.get('poster'),
-                                    topic=for_topic)
+        Post.objects.create(text=form.cleaned_data.get('text'),
+                            date_created=form.cleaned_data.get('date_created'),
+                            poster=form.cleaned_data.get('poster'),
+                            topic=for_topic)
         return redirect(for_topic)
     else:
-        return render(request, 'view_topic.html', locals())
+        return view_topic(request, topic_id)

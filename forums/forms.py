@@ -7,6 +7,7 @@ class AddTopicForm(forms.models.ModelForm):
 
     class Meta:
         model = Topic
+        exclude = ['forum']
 
 
 class AddForumForm(forms.models.ModelForm):

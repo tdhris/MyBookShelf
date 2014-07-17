@@ -1,34 +1,41 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<a id="new_topic" class="button" href="{% url 'forums.views.new_topic' forum.id %}">Start New Topic</a>
+<div class="jumbotron container img-rounded">
+<a id="new_topic" class="button" href="{% url 'forums.views.new_topic' forum_id %}">Start New Topic</a>
 <br />
 <br />
 
-<div id="list">
+<div id="list table">
 <table border="0" cellpadding="4" width="100%">
     <tr>
-        <td>Topics</td>
-        <td>Replies</td>
-        <td>Last post</td>
+        <td class="page-header h4">Topics</td>
+        <td class="page-header h4">Replies</td>
+        <td class="page-header h4">Last post</td>
         <td></td>
     </tr>
 
     {% for topic in forum.topic_set.all %}
     <tr>
-        <td {% if forloop.last %}class="last"{% endif %}>
-        <div class="title"> <a href="{% url 'forums.views.view_topic' topic.pk %}">{{ topic.title }}</a>
-            </div></td>
-        <td {% if forloop.last %}class="last"{% endif %}>{{ topic.post_count }}</td>
-        <td {% if forloop.last %}class="last"{% endif %}>
-            {{ topic.last_post.short |linebreaksbr }}</td>
-        <td {% if forloop.last %}class="last"{% endif %}>
-            <a class="button" href="{% url 'forums.views.view_topic' topic.pk %}">VIEW</a>
-        </td>
-    </tr>
+        <div class="title col-md-6">
+            <td {% if forloop.last %}class="last"{% endif %}>
+                <a href="{% url 'forums.views.view_topic' topic.pk %}" style="text-decoration: none;">{{ topic.title }}</a>
+            </td>
+        </div>
 
+        <div class="col-md-2">
+            <td {% if forloop.last %}class="last"{% endif %}>{{ topic.post_count }}</td>
+        </div>
+        
+        <div class="col-md-4">
+            <td {% if forloop.last %}class="last"{% endif %}>
+            {{ topic.last_post.short |linebreaksbr }}
+            </td>
+        </div>
+    </tr>
     {% endfor %}
 </table>
+</div>
 </div>
 
 {% endblock %}

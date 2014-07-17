@@ -2,10 +2,10 @@
 
 {% block content %}
 
-<div class="text-center bookview">
+<div class="text-center jumbotron">
     <h1>{{ book.title }}</h1>
-    <h3>by {{ book.author }}</h3>
-    <h3>Genre: {{ book.genre }}</h3>
+    <h3>by <a href="{% url 'see_author' book.author.id %}">{{ book.author }}</a></h3>
+    <h3>Genre: <a href="{% url 'see_genre' book.genre.id %}">{{ book.genre }}</a></h3>
     <h3>Publication Date: {{ book.pub_date }}</h3>
     <p>Synopsis</p>
     <p> {{ book.synopsis }} </p>

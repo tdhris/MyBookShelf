@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="text-center jumbotron">
+    <h1>{{ genre.name }}</h1>
+    <h3> Books in this genre... </h3>
+        {% for book in genre.book_set.all %}
+            <p><h4><a href="{% url 'see_book' book.id %}"> {{ book.title }} </a></h4></p>
+        {% endfor %}
+    <h3> What is {{ genre.name }} ?</h3>
+    <p> {{ genre.description }} </p>
+</div>
+
+{% endblock %}

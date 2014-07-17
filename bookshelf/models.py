@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse
 
 class Author(models.Model):
     name = models.CharField(max_length=30, default='')
+    biography = models.TextField(default='', blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -21,6 +22,7 @@ class Author(models.Model):
 
 class Genre(models.Model):
     name = models.CharField(max_length=30, default='')
+    description = models.TextField(default='', blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -36,7 +38,7 @@ class Genre(models.Model):
 
 
 class Book(models.Model):
-    title = models.CharField(max_length=30, default='')
+    title = models.CharField(max_length=60, default='')
     author = models.ForeignKey(Author)
     genre = models.ForeignKey(Genre)
     pub_date = models.DateField('Publication Date',

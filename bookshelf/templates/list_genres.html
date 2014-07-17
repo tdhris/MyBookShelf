@@ -3,13 +3,25 @@
 {% block page_title %}All Authors{% endblock %}
 
 {% block content %}
-    {% for genre in genres %}
-        <div class="text-center bookview">
-            <h1> {{ genre.name }}</h1>
-            <h3> Books: </h3>
-            {% for book in genre.book_set.all %}
-            <p><a href="{% url 'see_book' book.id %}"> {{ book.title }} </a></p>
+    <div class="text-center">
+   
+        <div class="navbar navbar-btn text-center container" style="display: inline;">
+            {% for letter in alphabetic_genres.keys %}
+                <h3 style="display: inline;"><a href="#{{letter}}">{{ letter}}</a></h3>
             {% endfor %}
         </div>
-    {% endfor %}
+
+        <div class="text-center bookview">
+        {% for letter, genres in alphabetic_genres.items %}
+        <div class="breadcrumb img-rounded" name="{{ letter }}">
+            <h1><a name="{{letter}}">{{ letter }}</a></h1>
+            {% for genre in genres %}
+                <h1><a href="{% url 'see_genre' genre.id %}"> {{ genre.name }}</a></h1>
+                <h4> Books: </h4>
+                {% for book in genre.book_set.all %}
+                <h3><p><a href="{% url 'see_book' book.id %}"> {{ book.title }} </a></p></h3>
+                {% endfor %}
+            {% endfor %}
+        </div>
+        {% endfor %}
 {% endblock %}

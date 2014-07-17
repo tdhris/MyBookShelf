@@ -4,6 +4,10 @@ from bookshelf.models import Author, Book
 
 
 class SearchBookForm(forms.Form):
+    # def __init__(self, placeholder=None):
+    #     super(SearchBookForm, self).__init__(self)
+    #     if placeholder:
+
     title = forms.CharField(max_length=30)
 
 
@@ -16,12 +20,12 @@ class SearchAuthorForm(forms.models.ModelForm):
 
 
 class AddBookForm(forms.models.ModelForm):
-    class Meta:
-        model = Book
-        exclude = ['author', 'genre', 'pub_date']
-
     author_name = forms.CharField(max_length=30)
     genre_name = forms.CharField(max_length=30)
     publication_date = forms.DateField(widget=extras.SelectDateWidget(
-        years=range(1930, 2014))
+        years=range(1530, 2016))
     )
+
+    class Meta:
+        model = Book
+        exclude = ['author', 'genre', 'pub_date']

@@ -1,22 +1,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-<div class="topic">Topic: {{ topic.title }}</div>
+<div class="jumbotron container img-rounded">
+<div class="topic page-header">Topic: {{ topic.title }}</div>
 <div id="list">
 
     {% for post in topic.post_set.all %}
-        <div class="post">
-            <span class="title">Posted by {{ post.poster }} | <span class="date">{{ post.date_created }}</span>|
+        <div class="postt container thumbnail">
+            <span class="title panel corousel panel-title">Posted by {% if post.poster %}{{ post.poster }}{% else %}Anonymous{% endif %} | <span class="date">{{ post.date_created }}</span>|
             <br />
+            </span>
             <div class="replytext">
-                {{ post.text }} <br />
+                {{ post.text|linebreaks }} <br />
             </div>
         </div>
         <br />
     {% endfor %}
 </div>
 <br />
-<a class="button" href="{% url 'forums.views.reply' topic.id %}">Reply</a>
-
+<a class="button text-center container thumbnail col-md-2" href="{% url 'forums.views.reply' topic_id %}">Reply</a>
+</div>
 {% endblock %}

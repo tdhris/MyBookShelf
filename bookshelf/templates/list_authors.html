@@ -3,13 +3,25 @@
 {% block page_title %}All Authors{% endblock %}
 
 {% block content %}
-    {% for author in authors %}
-        <div class="text-center bookview">
-            <h1>{{ author.name }}</h1>
-            <h3> Books: </h3>
-            {% for book in author.book_set.all %}
-            <p><a href="{% url 'see_book' book.id %}"> {{ book.title }} </a></p>
+    <div class="text-center">
+        <div class="navbar navbar-btn text-center container" style="display: inline;">
+            {% for letter in alphabetic_authors.keys %}
+                <h3 style="display: inline;"><a href="#{{letter}}">{{ letter}}</a></h3>
+            {% endfor %}
+        </div>
+
+    {% for letter, authors in alphabetic_authors.items %}
+        <div class="breadcrumb img-rounded" name="{{ letter }}">
+            <h1><a name="{{letter}}">{{ letter }}</a></h1>
+                {% for author in authors %}
+                    <h1><a href="{% url 'see_author' author.id %}">{{ author.name }}</a></h1>
+                    <h3> Books: </h3>
+                    {% for book in author.book_set.all %}
+                    <p><a href="{% url 'see_book' book.id %}"> {{ book.title }} </a></p>
+                {% endfor %}
             {% endfor %}
         </div>
     {% endfor %}
+
+    </div>
 {% endblock %}

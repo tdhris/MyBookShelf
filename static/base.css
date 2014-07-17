@@ -1,4 +1,4 @@
-.header h1 {
+header h1 {
     color:  #DBFFB8;
     font-family: "Brushstroke", fantasy;
     font-variant: small-caps;
@@ -112,10 +112,6 @@
 
 .not-found h2 {
     font-size: 20px;
-}
-
-.last {
-    text-align: center;
 }
 
 .forums {

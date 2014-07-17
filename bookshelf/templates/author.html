@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="text-center jumbotron">
+    <h1>{{ author.name }}</h1>
+    <h3> Books </h3>
+        {% for book in author.book_set.all %}
+            <p><a href="{% url 'see_book' book.id %}"> {{ book.title }} </a></p>
+        {% endfor %}
+    <h3>Author has written books in the following genres...</h3>
+    <td>
+        {% for genre in genres %}
+            <tr><p><a href="{% url 'see_genre' genre.id %}">{{ genre }}</a></p></tr>
+        {% endfor %}
+    </td>
+    <h3> Biography </h3>
+    {{ author.biography |linebreaksbr}}
+</div>
+
+{% endblock %}
