@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<div class="bookform form-control input-lg text-center">
+<div class=" form-control input-lg text-center">
     <form method="POST" action="{% url 'get_book' %}">
         {{ form }}
         {% csrf_token %}

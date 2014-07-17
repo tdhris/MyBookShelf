@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div id="list" class="jumbotron container img-rounded">
+<div id="list" class="jumbotron">
 <table border="0" cellpadding="4" width="100%">
     <tr>
         <td></td>
@@ -18,9 +18,6 @@
         <td {% if forloop.last %}class="last"{% endif %}>{{ forum.post_count }}</td>
         <td {% if forloop.last %}class="last"{% endif %}>
             {{ forum.last_post.short |linebreaksbr }}</td>
-        <td {% if forloop.last %}class="last"{% endif %}>
-            <a class="button" href="{% url 'view_forum' forum.id %}">VIEW</a>
-        </td>
     </tr>
 
     {% endfor %}

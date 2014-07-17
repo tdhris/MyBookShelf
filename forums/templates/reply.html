@@ -5,8 +5,8 @@
 
 {% block content %}
 
-<div class="form-horizontal form-group form-control input-lg text-center lala img-rounded jumbotron">
-    <form method="POST" action="{% url 'post_reply' topic_id %}">
+<div class=" jumbotron img-rounded">
+    <form class=" form-group input-lg img-rounded text-center" method="POST" action="{% url 'post_reply' topic_id %}">
         {{ form }}
         {% csrf_token %}
         <br />

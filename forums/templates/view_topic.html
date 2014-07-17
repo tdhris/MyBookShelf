@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="jumbotron container img-rounded">
-<div class="topic page-header">Topic: {{ topic.title }}</div>
+<div class="jumbotron img-rounded">
+<div class="topic page-header"><h3>Topic: {{ topic.title }}</h3></div>
 <div id="list">
 
     {% for post in topic.post_set.all %}
         <div class="postt container thumbnail">
-            <span class="title panel corousel panel-title">Posted by {% if post.poster %}{{ post.poster }}{% else %}Anonymous{% endif %} | <span class="date">{{ post.date_created }}</span>|
+            <span class="title panel corousel panel-title">Posted by {% if post.poster %}{{ post.poster }}{% else %}Anonymous{% endif %} | <span class="date">{{ post.date_created }}</span>
             <br />
             </span>
             <div class="replytext">
