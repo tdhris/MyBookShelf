@@ -4,6 +4,7 @@
 
 {% block content %}
     <div class="text-center">
+    {% if alphabetic_authors %}
         <div class="navbar navbar-btn text-center container" style="display: inline;">
             {% for letter in alphabetic_authors.keys %}
                 <h3 style="display: inline;"><a href="#{{letter}}">{{ letter}}</a></h3>
@@ -22,6 +23,16 @@
             {% endfor %}
         </div>
     {% endfor %}
+
+    {% else %}
+        <div class="row vertical-center-row">
+        <h3>There are no books on your BookShelf</h3>
+        <h4>
+        <a href="{% url 'add_book_form' %}">Add a book</a> now!
+        </h4>
+    </div>
+
+    {% endif %}
 
     </div>
 {% endblock %}

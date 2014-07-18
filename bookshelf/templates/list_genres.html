@@ -3,8 +3,9 @@
 {% block page_title %}All Authors{% endblock %}
 
 {% block content %}
-    <div class="text-center">
-   
+    
+<div class="text-center">
+    {% if alphabetic_genres %}
         <div class="navbar navbar-btn text-center container" style="display: inline;">
             {% for letter in alphabetic_genres.keys %}
                 <h3 style="display: inline;"><a href="#{{letter}}">{{ letter}}</a></h3>
@@ -22,6 +23,20 @@
                 <h3><p><a href="{% url 'see_book' book.id %}"> {{ book.title }} </a></p></h3>
                 {% endfor %}
             {% endfor %}
-        </div>
         {% endfor %}
+
+
+    {% else %}
+
+    <div class="row vertical-center-row">
+        <h3>There are no books on your BookShelf</h3>
+        <h4>
+        <a href="{% url 'add_book_form' %}">Add a book</a> now!
+        </h4>
+    </div>
+
+    {% endif %}
+
+</div>
+
 {% endblock %}

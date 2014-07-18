@@ -2,20 +2,45 @@
 
 {% block content %}
 
-<div class="text-center jumbotron">
+<div class="text-center">
+<div class="container">
     <h1>{{ book.title }}</h1>
     <h3>by <a href="{% url 'see_author' book.author.id %}">{{ book.author }}</a></h3>
     <h3>Genre: <a href="{% url 'see_genre' book.genre.id %}">{{ book.genre }}</a></h3>
-    <h3>Publication Date: {{ book.pub_date }}</h3>
+    <h4>Publication Date: {{ book.pub_date }}</h4>
+</div>
+<div class="container">
     <p>Synopsis</p>
     <p> {{ book.synopsis }} </p>
-
+</div>
 <br />
+<br />
+<div class="container">
 <h3>If you liked this book, you may also like...</h3>
 {% for other_book in other_books %}
 <p><a href="{% url 'see_book' other_book.id %}">{{ other_book.title }}</a></p>
 {% endfor %}
+</div>
+</div>
 
+<div class="jumbotron img-rounded">
+<div class="topic page-header"><h3>Reviews for this book...</h3></div>
+<div id="list">
+    {% for review in book.bookreview_set.all %}
+        <div class="postt container thumbnail">
+            <span class="title panel corousel panel-title">Reviewed by {% if review.reviewer %}{{ review.reviewer }}{% else %}Anonymous{% endif %} | <span class="date">{{ review.date }}</span> | Rating: <b> {{ review.score }} stars </b>
+            <br />
+            <br />
+            </span>
+            <div class="replytext">
+                {{ review.text|linebreaks }} <br />
+            </div>
+        </div>
+        <br />
+    {% endfor %}
+</div>
+<br />
+<a class="button text-center container thumbnail col-md-6 col-md-offset-3" href="{% url 'bookshelf.views.post_review' book.id %}">Add Review</a>
 </div>
 
 {% endblock %}

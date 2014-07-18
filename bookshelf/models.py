@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import datetime
 from django.core.urlresolvers import reverse
+from django.contrib.auth.models import User
 
 
 class Author(models.Model):
@@ -84,3 +85,42 @@ class Book(models.Model):
 
     def __ge__(self, other):
         return self.title >= other.title
+
+
+class Review(models.Model):
+    ONE_STAR = 1
+    TWO_STARS = 2
+    THREE_STARS = 3
+    FOUR_STARS = 4
+    FIVE_STARS = 5
+    REVIEW_SCORES = (
+        (ONE_STAR, ONE_STAR),
+        (TWO_STARS, TWO_STARS),
+        (THREE_STARS, THREE_STARS),
+        (FOUR_STARS, FOUR_STARS),
+        (FIVE_STARS, FIVE_STARS))
+
+    text = models.TextField(default='')
+    reviewer = models.ForeignKey(User, blank=True, null=True)
+    date = models.DateField(default=datetime.now(),
+                            null=True, blank=True)
+    score = models.IntegerField(choices=REVIEW_SCORES,
+                                default=THREE_STARS,)
+
+    def short(self):
+        return self.text[:100]
+
+    def __str__(self):
+        return "Review by {0}".format(self.reviewer.username)
+
+
+class BookReview(Review):
+    book = models.ForeignKey(Book)
+
+    def __eq__(self, other):
+        return all([self.reviewer == other.reviewer,
+                   self.score == other.score,
+                   self.book == other.book])
+
+    def __str__(self):
+        return "Review of {0}".format(self.book.title)

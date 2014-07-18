@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import extras
-from bookshelf.models import Author, Book
+from bookshelf.models import Author, Book, BookReview
 
 
 class SearchBookForm(forms.Form):
@@ -33,3 +33,9 @@ class AddBookForm(forms.models.ModelForm):
 
 class EditAuthorForm(forms.Form):
     biography = forms.CharField(widget=forms.Textarea(attrs={'cols': 100, 'rows': 10}))
+
+
+class PostReviewForm(forms.ModelForm):
+    class Meta:
+        model = BookReview
+        exclude = ['reviewer', 'date', 'book']

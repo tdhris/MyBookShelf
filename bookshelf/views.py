@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from bookshelf.forms import SearchBookForm, AddBookForm, EditAuthorForm
-from bookshelf.models import Book, Author, Genre
+from bookshelf.forms import SearchBookForm, AddBookForm, EditAuthorForm, PostReviewForm
+from bookshelf.models import Book, Author, Genre, BookReview
 from collections import OrderedDict
-from random import sample
+from random import sample, shuffle
 
 
 def home_page(request):
@@ -135,3 +135,27 @@ def get_alphabetic_dictionary(objects):
                              for first_letter in set(str(object)[0]
                                                      for object in objects)}
     return OrderedDict(sorted(alphabetic_dictionary.items(), key=lambda t: t[0]))
+
+
+def post_review(request, book_id):
+    form = PostReviewForm()
+    return render(request, 'post_review.html', locals())
+
+
+def save_review(request, book_id):
+    form = PostReviewForm(data=request.POST)
+    if form.is_valid():
+        book = Book.objects.get(pk=book_id)
+        BookReview.objects.create(text=form.cleaned_data.get('text'),
+                                  reviewer=get_user(request),
+                                  score=form.cleaned_data.get('score'),
+                                  book=book)
+        return redirect(book)
+
+    else:
+        return render(request, 'homepage.html', {'form': SearchBookForm()})
+
+
+def get_user(request):
+    if request.user.is_authenticated():
+        return request.user

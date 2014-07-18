@@ -5,23 +5,36 @@
 {% block content %}
 <div class="text-center">
    
+   {% if alphabetic_books %}
     <div class="navbar navbar-btn text-center container" style="display: inline;">
-    {% for letter in alphabetic_books.keys %}
-        <h3 style="display: inline;"><a href="#{{letter}}">{{ letter}}</a></h3>
-    {% endfor %}
+        {% for letter in alphabetic_books.keys %}
+            <h3 style="display: inline;"><a href="#{{letter}}">{{ letter}}</a></h3>
+        {% endfor %}
     </div>
 
-    {% for letter, books in alphabetic_books.items %}
-        <div class="breadcrumb img-rounded" name="{{ letter }}">
-            <h1><a name="{{letter}}">{{ letter }}</a></h1>
-            {% for book in books %}
-                <h2><a href="{% url 'see_book' book.id %}"> {{ book.title }} </a></h2>
-                <h3>Author: <a href="{% url 'see_author' book.author.id %}">{{ book.author }}</a></h3>
-                <h3>Genre: <a href="{% url 'see_genre' book.genre.id %}">{{ book.genre }}</a></h3>
-                <h3>Publication Date: {{ book.pub_date }}</h3>
-                <p> {{ book.synopsis }} </p>
-            {% endfor %}
-        </div>
-    {% endfor %}
+        {% for letter, books in alphabetic_books.items %}
+            <div class="breadcrumb img-rounded" name="{{ letter }}">
+                <h1><a name="{{letter}}">{{ letter }}</a></h1>
+                {% for book in books %}
+                    <h2><a href="{% url 'see_book' book.id %}"> {{ book.title }} </a></h2>
+                    <h3>Author: <a href="{% url 'see_author' book.author.id %}">{{ book.author }}</a></h3>
+                    <h3>Genre: <a href="{% url 'see_genre' book.genre.id %}">{{ book.genre }}</a></h3>
+                    <h3>Publication Date: {{ book.pub_date }}</h3>
+                    <p> {{ book.synopsis }} </p>
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+    {% else %}
+
+        <div class="row vertical-center-row">
+        <h3>There are no books on your BookShelf</h3>
+        <h4>
+        <a href="{% url 'add_book_form' %}">Add a book</a> now!
+        </h4>
     </div>
+
+    {% endif %}
+
+</div>
 {% endblock %}
