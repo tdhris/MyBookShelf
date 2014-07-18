@@ -2,6 +2,7 @@ from django.db import models
 from datetime import datetime
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+from statistics import mean
 
 
 class Author(models.Model):
@@ -46,6 +47,9 @@ class Genre(models.Model):
     def short(self):
         return self.description[:100]
 
+    def get_absolute_url(self):
+        return reverse('see_genre', args=[self.id])
+
 
 class Book(models.Model):
     title = models.CharField(max_length=60, default='')
@@ -61,6 +65,12 @@ class Book(models.Model):
 
     def short(self):
         return self.synopsis[:100]
+
+    def rating(self):
+        if self.bookreview_set.count():
+            return round(mean([review.score for review in self.bookreview_set.all()]), 1)
+        else:
+            return BookReview.NO_RATING
 
     def __str__(self):
         return self.title
@@ -88,6 +98,7 @@ class Book(models.Model):
 
 
 class Review(models.Model):
+    NO_RATING = "N/A"
     ONE_STAR = 1
     TWO_STARS = 2
     THREE_STARS = 3

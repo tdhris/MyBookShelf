@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from bookshelf.forms import SearchBookForm, AddBookForm, EditAuthorForm, PostReviewForm
+from bookshelf.forms import (SearchBookForm, AddBookForm,
+                             EditAuthorForm, PostReviewForm,
+                             EditGenreForm)
 from bookshelf.models import Book, Author, Genre, BookReview
 from collections import OrderedDict
-from random import sample, shuffle
+from random import sample
 
 
 def home_page(request):
@@ -52,6 +54,24 @@ def save_edit_author(request, author_id):
         return render(request, 'homepage.html', {'form': SearchBookForm()})
 
 
+def edit_genre(request, genre_id):
+    form = EditGenreForm()
+    return render(request, 'edit_genre.html', locals())
+
+
+def save_edit_genre(request, genre_id):
+    form = EditGenreForm(data=request.POST)
+    if form.is_valid():
+        genre = get_object_or_404(Genre, pk=genre_id)
+        genre.name = form.cleaned_data.get('name')
+        genre.description = form.cleaned_data.get('description')
+        genre.save()
+        return redirect(genre)
+
+    else:
+        return render(request, 'homepage.html', {'form': SearchBookForm()})
+
+
 def see_genre(request, genre_id):
     genre = get_object_or_404(Genre, pk=genre_id)
     return render(request, 'genre.html', locals())
@@ -90,6 +110,15 @@ def get_book(request):
 def list_books(request):
     alphabetic_books = get_alphabetic_dictionary(Book.objects.all())
     return render(request, 'list_books.html', locals())
+
+
+def high_rated_books(request):
+    rated_books = [book for book in Book.objects.all()
+                   if book.rating() != BookReview.NO_RATING]
+    highly_rated_books = sorted(rated_books,
+                                key=lambda book: book.rating(),
+                                reverse=True)
+    return render(request, 'highest_rated_books.html', locals())
 
 
 def list_authors(request):

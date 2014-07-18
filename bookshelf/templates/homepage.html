@@ -4,9 +4,15 @@
 
 {% block content %}
 
-<div class=" form-control input-lg text-center">
+
+<div class="img-rounded container text-center navbar navbar-static" style="width:30%; display:inline;">
+
     <form method="POST" action="{% url 'get_book' %}">
-        {{ form }}
+        {% for field in form %}
+           <a class="btn btn-link" href="{% url 'add_book_form' %}">Add Book</a>
+           {{ field }}
+           <a class="btn btn-link" href="{% url 'high_rated_books' %}"> Highest Rated Books</a>
+        {% endfor %}
         {% csrf_token %}
     </form>
 </div>

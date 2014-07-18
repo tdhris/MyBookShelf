@@ -7,10 +7,11 @@
     <h1>{{ book.title }}</h1>
     <h3>by <a href="{% url 'see_author' book.author.id %}">{{ book.author }}</a></h3>
     <h3>Genre: <a href="{% url 'see_genre' book.genre.id %}">{{ book.genre }}</a></h3>
-    <h4>Publication Date: {{ book.pub_date }}</h4>
+    <h3>Publication Date: {{ book.pub_date }}</h3>
+    <h3>Rating: {{book.rating}} </h3>
 </div>
 <div class="container">
-    <p>Synopsis</p>
+    <h3>Synopsis</h3>
     <p> {{ book.synopsis }} </p>
 </div>
 <br />
@@ -22,7 +23,8 @@
 {% endfor %}
 </div>
 </div>
-
+<br/>
+<br/>
 <div class="jumbotron img-rounded">
 <div class="topic page-header"><h3>Reviews for this book...</h3></div>
 <div id="list">
@@ -40,7 +42,7 @@
     {% endfor %}
 </div>
 <br />
-<a class="button text-center container thumbnail col-md-6 col-md-offset-3" href="{% url 'bookshelf.views.post_review' book.id %}">Add Review</a>
+<a class="button btn btn-default text-center container thumbnail col-md-6 col-md-offset-3" href="{% url 'bookshelf.views.post_review' book.id %}">Add Review</a>
 </div>
 
 {% endblock %}

@@ -2,10 +2,10 @@
 <html>
 <head>
     {% load staticfiles %}
-    {% load bootstrap_themes %}
     <title>{% block page_title %}{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% bootstrap_styles theme='amelia' type='css' %}
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'base.css' %}" rel="stylesheet">
 </head>
 <body>
     <div class="main wrapper">
@@ -16,13 +16,13 @@
                 </div>
 
                 <div class="nav page-header navbar-collapse collapse nav-tabs nav-justified">
-                    <ul style="list-style-type: none;">
+                    <ul>
                         <li class="active col-md-2"><a href="{% url 'home' %}">Home</a></li>
                         <li class="col-md-2"><a href="{% url 'list_books' %}">Books</a></li>
                         <li class="col-md-2"><a href="{% url 'list_authors' %}">Authors</a></li>
                         <li class="col-md-2"><a href="{% url 'list_genres' %}">Genres</a></li>
-                        <li class="col-md-2"><a href="{% url 'forums-home' %}">Forums</a></li>
-                        <li class="col-md-2"><a href="{% url 'about' %}">About</a></li>
+                        <li class="col-md-2"><a href="#">Forums</a></li>
+                        <li class="col-md-2"><a href="#">About</a></li>
                     </ul>
                 </div>
             </div>
@@ -31,9 +31,6 @@
             {% block content %}
             {% endblock %}
         </div>
-    </div>
-    <div class="footer navbar-fixed-bottom col-md-offset-1">
-    <p><h6>© 2014 MyBookShelf.home</h6></p>
     </div>
 </body>
 </html>

@@ -9,7 +9,11 @@
             <p><h4><a href="{% url 'see_book' book.id %}"> {{ book.title }} </a></h4></p>
         {% endfor %}
     <h3> What is {{ genre.name }} ?</h3>
-    <p> {{ genre.description }} </p>
+    <p> {{ genre.description |linebreaks }} </p>
 </div>
+<br />
+<br />
+<a class="button text-center btn btn-default container thumbnail col-md-6 col-md-offset-3" href="{% url 'edit_genre' genre.id %}">Edit Genre</a>
 
+</div>
 {% endblock %}

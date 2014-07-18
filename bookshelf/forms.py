@@ -1,14 +1,11 @@
 from django import forms
 from django.forms import extras
-from bookshelf.models import Author, Book, BookReview
+from bookshelf.models import Author, Book, BookReview, Genre
 
 
 class SearchBookForm(forms.Form):
-    # def __init__(self, placeholder=None):
-    #     super(SearchBookForm, self).__init__(self)
-    #     if placeholder:
-
-    title = forms.CharField(max_length=30)
+    title = forms.CharField(max_length=30,
+                            widget=forms.TextInput(attrs={'placeholder': '  Search for book'}))
 
 
 class SearchAuthorForm(forms.models.ModelForm):
@@ -33,6 +30,11 @@ class AddBookForm(forms.models.ModelForm):
 
 class EditAuthorForm(forms.Form):
     biography = forms.CharField(widget=forms.Textarea(attrs={'cols': 100, 'rows': 10}))
+
+
+class EditGenreForm(forms.ModelForm):
+    class Meta:
+        model = Genre
 
 
 class PostReviewForm(forms.ModelForm):
